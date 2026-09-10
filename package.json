@@ -1,0 +1,44 @@
+{
+  "name": "pi-procedural-graphs",
+  "version": "0.1.0",
+  "description": "Procedural Graph extension for pi: self-evolving, graph-structured procedural memory that injects step-level guidance at every decision step. Based on arXiv:2609.09153.",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "pi-package",
+    "procedural-graph",
+    "agent-memory",
+    "self-evolution",
+    "guidance"
+  ],
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-agent-core": "*",
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-agent-core": "*",
+    "@earendil-works/pi-coding-agent": "*",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typebox": "*",
+    "typescript": "^5.6.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "smoke": "tsx scripts/smoke.ts",
+    "prepublishOnly": "npm run typecheck && npm run smoke"
+  }
+}
