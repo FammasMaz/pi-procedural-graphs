@@ -232,8 +232,10 @@ export function registerCommands(pi: ExtensionAPI, rt: PGRuntime): void {
         }
 
         case "evolve": {
-          const ok = await maybeEvolve({ store, config, ctx, graphFilePath: rt.getGraphFilePath() }, booleans.has("force"));
-          if (ok) rt.save();
+          await maybeEvolve({ store, config, ctx, graphFilePath: rt.getGraphFilePath() }, booleans.has("force"));
+          // Always persist: evolve may have marked tasks evolved, incremented
+          // stats, or written rejection memory even when it returns false.
+          rt.save();
           break;
         }
 
