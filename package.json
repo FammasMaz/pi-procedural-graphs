@@ -41,7 +41,7 @@
     "smoke": "tsx scripts/smoke.ts",
     "integration": "tsx scripts/harness.ts",
     "disposable-test": "bash scripts/disposable-test.sh",
-    "disposable-test": "bash scripts/disposable-test.sh",
+    "benchmark": "node scripts/benchmark.mjs",
     "prepublishOnly": "npm run typecheck && npm run smoke && npm run integration"
   }
 }
