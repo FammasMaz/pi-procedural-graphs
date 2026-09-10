@@ -219,6 +219,19 @@ pi -e /path/to/pi-procedural-graphs/src/index.ts   # try once; nothing installed
 /path/to/pi-procedural-graphs` inside the disposable project writes only that project's
 `.pi/settings.json`.)
 
+**Step 2 — fully automated real-model check (optional, makes real LLM calls):**
+
+```bash
+npm run disposable-test
+```
+
+This runs pi in `--mode json` with the extension in a sandboxed HOME + fresh `/tmp` project
+(sandboxed settings strip your `packages`/`extensions`, so broken global extensions can't
+interfere; running sessions are untouched). It pins the model to
+`freebuff/deepseek/deepseek-v4-flash` via LiteLLM by default — override with
+`DISPOSABLE_MODEL=provider/model` — and asserts that context injection fired, the task
+succeeded, and an evolution round ran. Artifacts stay in `/tmp/pg-disposable`.
+
 Inside that disposable session:
 
 1. `/pg status` — expect the skeleton graph (9 nodes / 13 edges) and `inject:0`.

@@ -40,6 +40,8 @@
     "typecheck": "tsc --noEmit",
     "smoke": "tsx scripts/smoke.ts",
     "integration": "tsx scripts/harness.ts",
+    "disposable-test": "bash scripts/disposable-test.sh",
+    "disposable-test": "bash scripts/disposable-test.sh",
     "prepublishOnly": "npm run typecheck && npm run smoke && npm run integration"
   }
 }
