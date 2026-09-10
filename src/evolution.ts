@@ -180,6 +180,7 @@ export async function maybeEvolve(deps: EvolveDeps, force = false): Promise<bool
   }
 
   ctx.ui.notify(`PG: evolving with ${batch.length} tasks (${batch.filter((t) => t.verdict === "success").length} ok / ${batch.filter((t) => t.verdict === "fail").length} fail)…`, "info");
+  store.stats.evolutions++; // one refiner round, whatever its outcome
 
   const userPrompt = buildRefinerUserPrompt(store, batch, evo.maxTrajectoryTokens);
   let raw: string;
@@ -212,7 +213,6 @@ export async function maybeEvolve(deps: EvolveDeps, force = false): Promise<bool
     // Mark the batch as processed so it does not retrigger; a no-op is a valid
     // refiner outcome.
     for (const t of batch) t.evolved = true;
-    store.stats.evolutions++;
     ctx.ui.notify("PG: refiner proposed no edits; batch marked processed", "info");
     return false;
   }
@@ -288,7 +288,6 @@ export function commitStaged(deps: EvolveDeps, note?: string): boolean {
   const ids = new Set(store.staged.taskIds);
   for (const t of store.history) if (ids.has(t.id)) t.evolved = true;
   store.stats.commits++;
-  store.stats.evolutions++;
   store.staged = null;
   void note;
   return true;
